@@ -18,29 +18,25 @@
         <h2 class="col-8">Comments: {{ messages|length }}</h2>
         <div class="col-8">
             {% if user.username %}
-                <p>{{ user }}!</p>
-               <form method="post" action="{% url 'logout' %}">
+
+
+                <p id="user-name">{{ user }}!</p>
+                <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit">Disconnect</button>
-               </form>
+                </form>
 
             {% else %}
+
+
+
                 <form id="post-form">
                     <div class="col-12 form-group">
                         <label for="post">Comment</label>
-                        <textarea class="form-control required" id="post" rows="3"></textarea>
-                        <button type="submit" class="btn btn-primary col-2">Leave comment</button>
+                        <textarea class="form-control" id="post" rows="3" @keyup.enter="check_user_existing"></textarea>
+                        <button type="submit" class="btn btn-primary col-2" @click.prevent="check_user_existing">Leave comment</button>
                     </div>
                 </form>
-                <p>For comments, please log in:</p>
-                <div>
-                    <a class="social git" href="{% url 'social:begin' 'github' %}">
-                        <i class="fab fa-git"></i>
-                    </a>
-                    <a class="social twitter" href="{% url 'social:begin' 'twitter' %}">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
             {% endif %}
         </div>
         <div class="col-8" id="commentaries-list">
@@ -59,17 +55,17 @@
                         <p class="col-12 post-content">{{ message.message_text }}</p>
                     </div>
                     <div class="col-12 comment">
-                            <div v-show="comment_visib" class="col-8">
+                            <div class="col-8 comment-input hidden">
                                 <div class="row">
-                                    <input class="col-10" type="text" placeholder="Comment....">
+                                    <input class="col-10" type="text" placeholder="Comment...." @keyup.enter="check_user_existing">
                                     <div class="col-1 send-comment">
-                                        <a href="#">
+                                        <a href="#" @click.prevent="check_user_existing">
                                             <i class="fas fa-paper-plane"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        <a @click.prevent="show_input_comment" class="leave-comment">Comment</a>
+                        <a href ="" @click.prevent="show_input_field" class="leave-comment">Comment</a>
                     </div>
                     {% for comment in comments  %}
                         {% if comment.post.pk == message.pk %}

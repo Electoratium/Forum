@@ -4,6 +4,9 @@ a.disabled{
 .row{
     margin: 0;
 }
+.col-8{
+    position: static;
+}
 #forum-container{
     padding:0;
     justify-content: center;
@@ -22,6 +25,58 @@ a.disabled{
     text-indent: 2%;
     font-family: 'Quicksand', sans-serif;
 }
+#veil{
+    width: 100vw;
+    height:100vh;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background: grey;
+    opacity: 0.7;
+    z-index: 90;
+}
+#login-popup{
+    position: fixed;
+    top:40%;
+    left:40%;
+    z-index: 100;
+}
+.social{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7%;
+    border-radius: 50%;
+}
+.git{
+    background: black;
+    color:white;
+    transition: all .7s;
+}
+.git:hover{
+    background:white;
+    color:black;
+}
+.twitter{
+    color: white;
+    background: #1da1f2;
+    transition: all .7s;
+}
+.twitter:hover{
+    color: #1da1f2;
+    background: white;
+}
+
+
+
+
+
+
+
+
+
+
+
 #forum-block{
     display: flex;
     justify-content: center;
@@ -101,8 +156,8 @@ a.disabled{
 }
 .comment-input{
     position: relative;
-    /*right: 0;*/
-    transition: all 0.8s ease-out;
+    right: 0;
+    transition: right 0.8s ease-out;
 }
 .hidden{
     right:100%;
@@ -130,37 +185,13 @@ a.disabled{
     border-left:2px solid dimgrey;
 }
 
-
-
-
-
-
-
-
-
-.social{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 31px;
-    height:31px;
-    border-radius: 50%;
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .4s;
 }
-.git{
-    background: black;
-    color:white;
-    transition: all .7s;
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
-.git:hover{
-    background:white;
-    color:black;
-}
-.twitter{
-    color: white;
-    background: #1da1f2;
-    transition: all .7s;
-}
-.twitter:hover{
-    color: #1da1f2;
-    background: white;
-}
+
+
+
+

@@ -1,0 +1,18 @@
+<transition name="fade">
+    <div  v-if="show_login">
+        <div id="veil" @click="toggle_visib_login"></div>
+        <div class="card bg-light mb-3" id="login-popup">
+          <div class="card-header">For comments, please log in:</div>
+            <div class="card-body">
+                <div class="row justify-content-around">
+                    <a class="col-4 social git" href="{% url 'social:begin' 'github' %}">
+                        <i class="fab fa-git fa-2x"></i>
+                    </a>
+                    <a class="col-4 social twitter" href="{% url 'social:begin' 'twitter' %}">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</transition>

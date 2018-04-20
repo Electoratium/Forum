@@ -20,15 +20,40 @@
 
 new Vue({
     delimiters: ['[[', ']]'],
-    el: '#forum-block',
+    el: '#forum-container',
     data: {
-       comment_visib: false
+        show_login: false,
     },
-    computed: {
-       show_input_comment: function(event) {
-           this.component_visib = false;
-           event.currentTarget
-           
-       }
+    methods: {
+        show_input_field: function (e) {
+
+            //check for login
+
+
+
+
+            e.currentTarget.previousElementSibling.classList.toggle('hidden');
+              // this.$http.get('/').then((data,status,request) => {
+              //
+              //   // get body data
+              //   console.log(data.user.username);
+              //
+              // }, response => {
+              //   // error callback
+              // });
+        },
+        check_user_existing: function (e) {
+            if(document.getElementById('user-name')){
+
+            }
+            else{
+                console.log(e.currentTarget);
+                this.show_login = true;
+            }
+
+        },
+        toggle_visib_login: function () {
+            this.show_login = false;
+        }
     }
 });
