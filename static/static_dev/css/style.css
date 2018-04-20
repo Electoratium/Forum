@@ -4,12 +4,10 @@ a.disabled{
 .row{
     margin: 0;
 }
-.col-8{
-    position: static;
-}
 #forum-container{
     padding:0;
     justify-content: center;
+    display: none;
 }
 #post-problem{
     display: flex;
@@ -184,13 +182,12 @@ a.disabled{
 .comment-post{
     border-left:2px solid dimgrey;
 }
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .4s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
+/*.fade-enter, .fade-leave-to {*/
+  /*opacity: 0.;*/
+/*}*/
+/*.fade-enter-to, .fade-leave{*/
+    /*opacity: 1;*/
+/*}*/
 
 
 

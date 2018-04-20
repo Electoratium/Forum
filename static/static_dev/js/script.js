@@ -16,7 +16,13 @@
 //
 //
 // }
-
+document.addEventListener('DOMContentLoaded', show_page);
+function show_page() {
+    //hide preloader
+    document.getElementById('preloader').style.display = 'none';
+    //show content
+    document.getElementById('forum-container').style.display = 'block';
+}
 
 new Vue({
     delimiters: ['[[', ']]'],
