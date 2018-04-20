@@ -1,0 +1,161 @@
+a.disabled{
+    pointer-events: none;
+}
+.row{
+    margin: 0;
+}
+#forum-container{
+    padding:0;
+    justify-content: center;
+}
+#post-problem{
+    display: flex;
+    justify-content: center;
+}
+#post-problem h1{
+    padding: 1% 0;
+    border-bottom:1px solid lightgray;
+    justify-content: center;
+    font-family: 'Asap', sans-serif;
+}
+#post-problem p{
+    text-indent: 2%;
+    font-family: 'Quicksand', sans-serif;
+}
+#forum-block{
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+#forum-block h2{
+    border-bottom: 2px solid lightskyblue;
+    font-family: 'Asap', sans-serif;
+}
+
+
+#post-form{
+    display: flex;
+}
+#post-form textarea{
+    min-height: 60px;
+    max-height: 180px;
+}
+#post-form button{
+    margin-top: 2%;
+}
+
+
+
+#commentaries-list{
+    background: #e4e8efd4;
+    padding: 1%;
+}
+.post{
+    background: ghostwhite;
+    padding: 5px 10px;
+    border-radius: 2%;
+    border-bottom: 2px solid #b5a7a7;
+    margin-bottom: 2%;
+}
+.avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+.avatar nav{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    font-weight: 600;
+    background: #d5c6b3;
+    font-size: 1.5rem;
+
+}
+.post-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.post-name{
+    font-weight: 600;
+    font-family: 'Asap', sans-serif;
+}
+.post-date{
+    color:darkgrey;
+    font-size: 0.8rem;
+}
+.post-content{
+    font-family: 'Quicksand', sans-serif;
+}
+.comment{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    transition: all .5s ease-out;
+}
+.hidden{
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+
+
+
+.comment input{
+    border:1px solid black;
+    border-right: none;
+    border-radius: 15px 0 0 15px;
+}
+.comment input:focus{
+    outline: none;
+}
+.send-comment{
+    border:1px solid black;
+    border-left:none;
+    border-radius: 0 15px 15px 0;
+    width: auto;
+}
+.comment-post{
+    border-left:2px solid dimgrey;
+}
+
+
+
+
+
+
+
+
+
+.social{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height:31px;
+    border-radius: 50%;
+}
+.git{
+    background: black;
+    color:white;
+    transition: all .7s;
+}
+.git:hover{
+    background:white;
+    color:black;
+}
+.twitter{
+    color: white;
+    background: #1da1f2;
+    transition: all .7s;
+}
+.twitter:hover{
+    color: #1da1f2;
+    background: white;
+}

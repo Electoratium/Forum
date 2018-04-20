@@ -1,0 +1,98 @@
+{% extends 'Base_templates/base.html' %}
+{% load static %}
+{% load  template_filter %}
+{% block content %}
+    <div id="post-problem" class="row">
+        <div class="col-8 justify-content-center">
+            <h1>Decode an App Engine Blobkey to a Google Cloud Storage Filename</h1>
+            <p>I've got a database full of BlobKeys that were previously uploaded through the standard
+                Google App Engine create_upload_url() process, and each of the uploads went to the same
+                Google Cloud Storage bucket by setting the gs_bucket_name argument.
+                What I'd like to do is be able to decode the existing blobkeys so I can get their Google
+                Cloud Storage filenames. I understand that I could have been using the gs_object_name
+                property from the FileInfo class, except:
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center" id="forum-block">
+        <h2 class="col-8">Comments: {{ messages|length }}</h2>
+        <div class="col-8">
+            {% if user.username %}
+                <p>{{ user }}!</p>
+               <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Disconnect</button>
+               </form>
+
+            {% else %}
+                <form id="post-form">
+                    <div class="col-12 form-group">
+                        <label for="post">Comment</label>
+                        <textarea class="form-control required" id="post" rows="3"></textarea>
+                        <button type="submit" class="btn btn-primary col-2">Leave comment</button>
+                    </div>
+                </form>
+                <p>For comments, please log in:</p>
+                <div>
+                    <a class="social git" href="{% url 'social:begin' 'github' %}">
+                        <i class="fab fa-git"></i>
+                    </a>
+                    <a class="social twitter" href="{% url 'social:begin' 'twitter' %}">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-8" id="commentaries-list">
+            {% for message in messages %}
+                <div class="row post" data-post="{{ message.pk }}">
+                    <div class="avatar">
+                        <nav>
+                            {{ message.user_name|get_first_letter }}
+                        </nav>
+                    </div>
+                    <div class="col-11">
+                        <div class="post-title">
+                            <p class="post-name">{{ message.user_name }}</p>
+                            <p class="post-date">{{ message.post_date|date:'d M Y H:i' }}</p>
+                        </div>
+                        <p class="col-12 post-content">{{ message.message_text }}</p>
+                    </div>
+                    <div class="col-12 comment">
+                            <div class=" col-8 hidden">
+                                <div class="row">
+                                    <input class="col-10" type="text" placeholder="Comment....">
+                                    <div class="col-1 send-comment">
+                                        <a href="#">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <a href="">Comment</a>
+                    </div>
+                    {% for comment in comments  %}
+                        {% if comment.post.pk == message.pk %}
+                            <div class="row col-12 justify-content-end">
+                                <div class="row col-11 comment-post">
+                                    <div class="col-1 avatar">
+                                        <nav>
+                                            {{ comment.user_name|get_first_letter }}
+                                        </nav>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="post-title">
+                                            <p class="post-name">{{ comment.user_name }}</p>
+                                            <p class="post-date">{{ comment.comment_date }}</p>
+                                        </div>
+                                        <p class="col-12 post-content">{{ comment.comment_text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
