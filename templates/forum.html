@@ -59,7 +59,7 @@
                         <p class="col-12 post-content">{{ message.message_text }}</p>
                     </div>
                     <div class="col-12 comment">
-                            <div class=" col-8 hidden">
+                            <div v-show="comment_visib" class="col-8">
                                 <div class="row">
                                     <input class="col-10" type="text" placeholder="Comment....">
                                     <div class="col-1 send-comment">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <a href="">Comment</a>
+                        <a @click.prevent="show_input_comment" class="leave-comment">Comment</a>
                     </div>
                     {% for comment in comments  %}
                         {% if comment.post.pk == message.pk %}
