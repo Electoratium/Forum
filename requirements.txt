@@ -1,4 +1,15 @@
 psycopg2
 social-auth-app-django
 
-python-oauth2
+
+
+channels_redis
+
+#может и не надо
+#docker
+
+
+
+django-channels
+#python-oauth2
+

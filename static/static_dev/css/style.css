@@ -80,7 +80,11 @@ a.disabled{
     justify-content: center;
     margin-top: 3%;
 }
-#forum-block h2{
+#login{
+    display: flex;
+    justify-content: flex-end;
+}
+#forum-block h2, #login{
     border-bottom: 2px solid lightskyblue;
     font-family: 'Asap', sans-serif;
 }
@@ -169,25 +173,24 @@ a.disabled{
     border:1px solid black;
     border-right: none;
     border-radius: 15px 0 0 15px;
+    transition: border .5s;
 }
 .comment input:focus{
     outline: none;
 }
+
 .send-comment{
     border:1px solid black;
     border-left:none;
     border-radius: 0 15px 15px 0;
     width: auto;
 }
+
+
 .comment-post{
     border-left:2px solid dimgrey;
 }
-/*.fade-enter, .fade-leave-to {*/
-  /*opacity: 0.;*/
-/*}*/
-/*.fade-enter-to, .fade-leave{*/
-    /*opacity: 1;*/
-/*}*/
+
 
 
 
