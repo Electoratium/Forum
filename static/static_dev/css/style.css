@@ -80,10 +80,7 @@ a.disabled{
     justify-content: center;
     margin-top: 3%;
 }
-#login{
-    display: flex;
-    justify-content: flex-end;
-}
+
 #forum-block h2, #login{
     border-bottom: 2px solid lightskyblue;
     font-family: 'Asap', sans-serif;

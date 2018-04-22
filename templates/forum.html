@@ -15,16 +15,24 @@
         </div>
     </div>
     <div class="row justify-content-center" id="forum-block">
-        <h2 class="col-4">Comments: {{ messages|length }}</h2>
-        {% if user.username %}
-            <div id="login" class="row col-4">
-                <p class="col-4" id="user-name">{{ user }}</p>
-                <form action="{% url 'logout' %}" class="col-2">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger">Disconnect</button>
-                </form>
+            <div class="row col-8">
+                <h2 class="col-6 m-0">Comments: {{ messages|length }}</h2>
+                {% if user.username %}
+                <div id="login" class="row col-6 justify-content-end">
+                    <p id="user-name" class="col-4 align-items-center">{{ user }}</p>
+                    <form action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Disconnect</button>
+                    </form>
+                </div>
+                {% else %}
+                     <div id="login" class="row col-6 justify-content-end">
+                        <a href=""  @click.prevent="check_user_existing">Please log in to post comments</a>
+                    </div>
+                {% endif %}
+
             </div>
-        {% endif %}
+
         <div class="col-8">
 
                 <form id="post-form">
