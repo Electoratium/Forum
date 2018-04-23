@@ -2,5 +2,5 @@ social-auth-app-django
 django-channels
 channels_redis
 
-#python-oauth2
+
 
