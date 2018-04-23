@@ -5,8 +5,72 @@ function show_page() {
     //show content
     document.getElementById('forum-container').style.display = 'block';
 }
+var post_vue = Vue.component('post', {
+    template:
+    `<div class="row post" :data-post-id="this.created_id"> 
+        <div class="avatar">
+            <nav>
+                {{ this.get_first_letter() }}
+            </nav>
+        </div>
+        <div class="col-11">
+            <div class="post-title">
+                <p class="post-name">{{ this.user_name }}</p>
+                <p class="post-date">{{ this.date_post }}</p>
+            </div>
+            <p class="col-12 post-content">{{ this.post_content }}</p>
+        </div>
+        <div class="col-12 comment">
+                <div class="col-8 comment-input hidden">
+                    <div class="row">
+                        <input class="col-10" type="text" placeholder="Comment...." @keyup.enter="vm.check_user_existing()" :data-post-id='this.created_id'>
+                        <div class="col-1 send-comment">
+                            <a href="#" @click.prevent="vm.$refs.check_user_existing()">
+                                <i class="fas fa-paper-plane"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <a href ="" @click.prevent="vm.show_input_field()" class="leave-comment">Comment</a>
+        </div>
+    </div>`,
+    props: ['created_id', 'user_name', 'date_post', 'post_content'],
+    methods:{
+        get_first_letter: function(){
+            return this.user_name[0];
+        },
+    }
+});
 
-new Vue({
+
+var comment = Vue.component('comment', {
+    template:
+        `<div class="row col-12 justify-content-end">
+            <div class="row col-11 comment-post">
+                <div class="col-1 avatar">
+                    <nav>{{ this.get_first_letter() }}</nav>
+                </div>
+                <div class="col-11">
+                    <div class="post-title">
+                        <p class="post-name">{{ this.user_name }}</p>
+                        <p class="post-date">{{ this.date_post }}</p>
+                    </div>
+                    <p class="col-12 post-content">{{ this.post_content }}</p>
+                </div>
+            </div>
+        </div>`,
+    props: ['user_name', 'date_post', 'post_content'],
+    methods:{
+        get_first_letter: function(){
+            return this.user_name[0];
+        }
+    }
+
+});
+
+
+
+var vm = new Vue({
     delimiters: ['[[', ']]'],
     el: '#forum-container',
     data: {
@@ -86,96 +150,53 @@ new Vue({
                 var post = document.createElement('div');
 
 
+
+
+                var comment_date =  new Date(message['date_time']);
+
+                var date_options = {
+                    day: "numeric", month: "short", year: "numeric",
+                    hour: "2-digit", minute: "2-digit"
+                };
+
+                comment_date = comment_date.toLocaleString('en-GB', date_options);
+
+
                 //check comment or post
                 if(!message['post_id']){
-                    post.className = 'row post';
-                    post.setAttribute('data-post-id', message['created_id']);
 
-                    post.innerHTML =
-                        '<div class="avatar">' +
-                            '<nav>' +
-                            '</nav>' +
-                        '</div>' +
-                        '<div class="col-11">' +
-                            '<div class="post-title">' +
-                                '<p class="post-name"></p>' +
-                                '<p class="post-date"></p>' +
-                            '</div>' +
-                            '<p class="col-12 post-content"></p>' +
-                        '</div>' +
-                        '<div class="col-12 comment">' +
-                                '<div class="col-8 comment-input hidden">' +
-                                    '<div class="row">' +
-                                        '<input class="col-10" type="text" placeholder="Comment...." v-on:keyup.enter="check_user_existing" data-post-id=' + message['created_id'] + '>' +
-                                        '<div class="col-1 send-comment">' +
-                                            '<a href="#" v-on:click.prevent="check_user_existing">' +
-                                                '<i class="fas fa-paper-plane"></i>' +
-                                            '</a>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '<a href ="" v-on:click.prevent="show_input_field" class="leave-comment">Comment</a>' +
-                        '</div>';
+                        var post_component = Vue.extend(post_vue);
 
+                        var post_instance = new post_component({
+                           propsData: {
+                               user_name: message['user_name'],
+                               date_post: comment_date,
+                               post_content: message['message_text'],
+                               created_id: message['created_id']
+                           }
+                        });
 
-                        fill_post(post, message);
+                        post_instance.$mount();
 
-
-                        container_post.insertBefore(post, container_post.firstElementChild);
-
+                        container_post.insertBefore(post_instance.$el, container_post.firstElementChild);
                 }
                 else{
-                    post.className = 'row col-12 justify-content-end';
-                    post.innerHTML =
-                        '<div class="row col-11 comment-post">' +
-                            '<div class="col-1 avatar">' +
-                                '<nav>'+
-                                '</nav>' +
-                            '</div>' +
-                            '<div class="col-11">' +
-                                '<div class="post-title">' +
-                                    '<p class="post-name"></p>' +
-                                    '<p class="post-date"></p>' +
-                                '</div>' +
-                                '<p class="col-12 post-content"></p>'+
-                            '</div>' +
-                        '</div>';
+                        var comment_component =  Vue.extend(comment);
 
-                        fill_post(post, message);
+                        var comment_instance = new comment_component({ propsData: {
+                                    user_name: message['user_name'],
+                                    date_post: comment_date,
+                                    post_content: message['message_text']
+                                }
+                            });
+
+                        comment_instance.$mount();
 
                         var answer_post = document.querySelector('div [data-post-id="' + message["post_id"] + '"');
 
                         //insert into DOM
-                        answer_post.insertBefore(post,answer_post.children[3]);
-
+                        answer_post.insertBefore(comment_instance.$el,answer_post.children[3]);
                 }
-
-                function fill_post(post, websocket_data) {
-                    //fill post data from websocket
-
-                    var post_date =  new Date(websocket_data['date_time']);
-
-                    var date_options = {
-                        day: "numeric", month: "short", year: "numeric",
-                        hour: "2-digit", minute: "2-digit"
-                    };
-
-                    post_date = post_date.toLocaleString('en-GB', date_options);
-
-
-                    // console.log(post_date.getDate() + post_date.getMonth() + 1);
-
-
-                    post.querySelector('nav').innerHTML = websocket_data['user_name'][0];
-
-                    post.querySelector('.post-name').innerHTML = websocket_data['user_name'];
-
-                    post.querySelector('.post-date').innerHTML = post_date;
-
-                    post.querySelector('.post-content').innerHTML = websocket_data['message_text'];
-                }
-
-
             };
 
 
@@ -186,5 +207,5 @@ new Vue({
         else{
             this.user_existing = 0;
         }
-    },
+    }
 });

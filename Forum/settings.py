@@ -84,7 +84,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('192.168.99.100', 6379)],
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
@@ -148,7 +148,7 @@ SOCIAL_AUTH_TWITTER_SECRET = 'tOtoIuWxbOvJYaTmQwOWhhtRfaqZlKT1hhTpEXDRu1hW3OmU3T
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
